@@ -1,0 +1,19 @@
+{
+  "name": "cordova_cssoft_social_login",
+  "version": "0.0.1",
+  "description": "",
+  "cordova": {
+    "id": "cordova_cssoft_social_login",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "author": "",
+  "license": "ISC"
+}
