@@ -56,14 +56,19 @@ export class CordovaSocialLogin {
     };
 
     static parseLoginResult(jsonString: string): SocialLoginResult {
-        const json = JSON.parse(jsonString);
-        // Step 2: Create an instance of SocialLoginResult
-        const loginResult = new SocialLoginResult();
-        
-        // Step 3: Assign the parsed properties to the class instance
-        Object.assign(loginResult, json);
-        
-        return loginResult;
+        try {
+            const json = JSON.parse(jsonString);
+            const loginResult = new SocialLoginResult();
+            Object.assign(loginResult, json);
+            
+            return loginResult;
+        } catch (error) {
+            console.error("Error parseLoginResult: ", jsonString);
+            const ret = new SocialLoginResult();
+            ret.isSuccess = false;
+            ret.errorMessage = error.toString();
+            return ret;
+        }
     }
 }
 
