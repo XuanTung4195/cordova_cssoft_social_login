@@ -82,6 +82,10 @@ public class CdvCsSoftSocialLogin extends CordovaPlugin {
             firebaseLogin.loginLine(callbackContext, json.getString("channelId"));
             return true;
         }
+        if (action.equals("login_apple")) {
+            firebaseLogin.loginApple(callbackContext);
+            return true;
+        }
         callbackContext.error("Not Implemented");
         return false;
     }
@@ -120,6 +124,33 @@ public class CdvCsSoftSocialLogin extends CordovaPlugin {
             googleSignInClient.signOut();
             Intent signInIntent = googleSignInClient.getSignInIntent();
             cordova.getActivity().startActivityForResult(signInIntent, requestCodeGoogle);
+        }
+
+        // Apple
+        public void loginApple(CallbackContext callback) {
+            this.callbackContext = callback;
+            prepareActivityResultCallback();
+            signOutFirebase();
+            OAuthProvider.Builder provider = OAuthProvider.newBuilder("apple.com");
+            SocialLoginResult result = new SocialLoginResult(SocialLoginResult.typeApple, true);
+            firebaseAuth.startActivityForSignInWithProvider(cordova.getActivity(), provider.build())
+                    .addOnSuccessListener(
+                            new OnSuccessListener<AuthResult>() {
+                                @Override
+                                public void onSuccess(AuthResult authResult) {
+                                    // Sign-in successful!
+                                    handleAuthResult(authResult, SocialLoginResult.typeApple);
+                                }
+                            })
+                    .addOnFailureListener(
+                            new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    result.isSuccess = false;
+                                    result.errorMessage = e.getMessage();
+                                    loginError(result);
+                                }
+                            });
         }
 
         // Facebook
