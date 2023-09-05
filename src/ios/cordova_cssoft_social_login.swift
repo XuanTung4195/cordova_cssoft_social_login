@@ -158,25 +158,20 @@ class FirebaseSocialLogin: NSObject, ASAuthorizationControllerDelegate  {
         // User is signed in to Firebase
         let result = SocialLoginResult(type: type, success: true);
         
-        let credential: AuthCredential? = authResult!.credential;
+        // let credential: AuthCredential? = authResult!.credential;
+        // let oauth: OAuthCredential? = credential as? OAuthCredential;
         
-        let oauth: OAuthCredential? = credential as? OAuthCredential;
-        if (oauth?.idToken == nil) {
-            let user = authResult!.user;
-            user.getIDToken() {token, tokenError in
-                if (tokenError != nil || token == nil) {
-                    result.setGoogleAuthResult(authResult: authResult!)
-                    self.loginSuccess(result: result)
-                    return
-                } else {
-                    result.setGoogleAuthResultWithToken(authResult: authResult!, idToken: token)
-                    self.loginSuccess(result: result)
-                    return
-                }
+        let user = authResult!.user;
+        user.getIDToken() {token, tokenError in
+            if (tokenError != nil || token == nil) {
+                result.setGoogleAuthResult(authResult: authResult!)
+                self.loginSuccess(result: result)
+                return
+            } else {
+                result.setGoogleAuthResultWithToken(authResult: authResult!, idToken: token)
+                self.loginSuccess(result: result)
+                return
             }
-        } else {
-            result.setGoogleAuthResult(authResult: authResult!)
-            self.loginSuccess(result: result)
         }
     }
     

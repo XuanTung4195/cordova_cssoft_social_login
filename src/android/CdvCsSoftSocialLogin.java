@@ -344,12 +344,12 @@ public class CdvCsSoftSocialLogin extends CordovaPlugin {
         }
 
         private void handleAuthResult(AuthResult authResult, String loginType) {
-            AuthCredential credential = authResult.getCredential();
-            OAuthCredential oauth = ((OAuthCredential) credential);
-            String idToken = oauth.getIdToken();
+            // AuthCredential credential = authResult.getCredential();
+            // OAuthCredential oauth = ((OAuthCredential) credential);
+            // String idToken = oauth.getIdToken();
             FirebaseUser user = authResult.getUser();
             SocialLoginResult result = new SocialLoginResult(loginType, true);
-            if (idToken == null && user != null) {
+            if (user != null) {
                 user.getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
                                                                 @Override
                                                                 public void onComplete(@NonNull Task<GetTokenResult> tokenTask) {
