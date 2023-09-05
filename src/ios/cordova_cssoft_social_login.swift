@@ -324,7 +324,7 @@ class FirebaseSocialLogin: NSObject, ASAuthorizationControllerDelegate  {
         fbLoginManager.logOut();
         let nonce = self.randomNonceString()
         let configuration = LoginConfiguration(
-            permissions:[],
+            permissions:["public_profile", "email"],
             nonce: sha256(nonce)
         );
         fbLoginManager.logIn(configuration: configuration) { result in

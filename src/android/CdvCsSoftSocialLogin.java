@@ -46,6 +46,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -190,7 +191,7 @@ public class CdvCsSoftSocialLogin extends CordovaPlugin {
                 }
                 fbLoginManager.logOut();
             }
-            fbLoginManager.logIn(cordova.getActivity(), new ArrayList<>());
+            fbLoginManager.logIn(cordova.getActivity(), Arrays.asList("public_profile", "email"));
         }
 
         // Twitter
