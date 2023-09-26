@@ -19,8 +19,8 @@
       </config-file>
       <config-file parent="/*" target="AndroidManifest.xml" />
       <source-file src="src/android/CdvCsSoftSocialLogin.java" target-dir="src/cordova_cssoft_social_login" />
-      <framework src="com.facebook.android:facebook-login:16.1.3" />
-      <framework src="com.linecorp.linesdk:linesdk:5.8.1" />
+      <framework src="com.facebook.android:facebook-login:16.2.0" />
+      <framework src="com.linecorp.linesdk:linesdk:5.9.0" />
       <framework src="androidx.lifecycle:lifecycle-viewmodel:2.5.1" />
       <framework src="androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1" />
       <framework src="com.google.code.gson:gson:2.8.5" />
