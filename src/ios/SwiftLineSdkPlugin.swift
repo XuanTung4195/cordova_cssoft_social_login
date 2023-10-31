@@ -23,7 +23,7 @@ import LineSDK
         if (!LoginManager.shared.isSetupFinished) {
             LoginManager.shared.setup(channelID: channelId, universalLinkURL: nil)
         }
-        let scopes : [LoginPermission] = [.profile]
+        let scopes : [LoginPermission] = [.profile, .email, .openID]
         var parameters = LoginManager.Parameters()
         parameters.onlyWebLogin = false
         // parameters.IDTokenNonce = args["idTokenNonce"] as? String

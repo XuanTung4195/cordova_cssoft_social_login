@@ -382,6 +382,7 @@ class FirebaseSocialLogin: NSObject, ASAuthorizationControllerDelegate  {
                     if (value.userProfile != nil) {
                         result.userName = value.userProfile?.displayName;
                         result.userId = value.userProfile?.userID;
+                        result.email = value.accessToken.IDToken?.payload.email;
                     }
                     result.accessToken = value.accessToken.value;
                     self.loginSuccess(result: result)

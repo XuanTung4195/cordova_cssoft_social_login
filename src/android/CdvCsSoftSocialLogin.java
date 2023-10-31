@@ -386,7 +386,7 @@ public class CdvCsSoftSocialLogin extends CordovaPlugin {
         ) {
             setup(activity, channelId);
             LineAuthenticationParams lineAuthenticationParams = new LineAuthenticationParams.Builder()
-                    .scopes(Scope.convertToScopeList(Collections.singletonList("profile")))
+                    .scopes(Scope.convertToScopeList(Arrays.asList("profile", "email", "openid")))
                     .botPrompt(LineAuthenticationParams.BotPrompt.valueOf("normal"))
                     .build();
             Intent loginIntent = LineLoginApi.getLoginIntent(activity, channelId, lineAuthenticationParams);
