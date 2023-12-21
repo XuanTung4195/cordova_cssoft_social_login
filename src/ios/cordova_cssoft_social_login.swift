@@ -287,7 +287,10 @@ class FirebaseSocialLogin: NSObject, ASAuthorizationControllerDelegate  {
         GIDSignIn.sharedInstance.configuration = config
         
         // Start the sign in flow!
-        GIDSignIn.sharedInstance.signIn(withPresenting: mainWindow()!.rootViewController!) { result, error in
+        GIDSignIn.sharedInstance.signIn(withPresenting: mainWindow()!.rootViewController!,
+                                        hint: nil,
+                                        additionalScopes:["https://www.googleapis.com/auth/userinfo.email"]
+        ) { result, error in
             guard error == nil else {
                 errorResult.errorMessage = error?.localizedDescription;
                 self.loginError(result: errorResult)
