@@ -119,6 +119,7 @@ public class CdvCsSoftSocialLogin extends CordovaPlugin {
             GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                     // https://developers.google.com/identity/sign-in/android/start-integrating
                     // "533504721823-fb2j6mo7mnqiv8rl32gglvj3u7pe70kh.apps.googleusercontent.com"
+                    .requestEmail()
                     .requestIdToken(serverClientId)
                     .build();
             googleSignInClient = GoogleSignIn.getClient(cordova.getActivity(), gso);
