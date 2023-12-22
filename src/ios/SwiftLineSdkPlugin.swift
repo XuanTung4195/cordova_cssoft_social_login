@@ -1,5 +1,6 @@
 import UIKit
 
+/*
 import LineSDK
 
 @objc public class SwiftLineSdkPlugin: NSObject {
@@ -37,3 +38,4 @@ import LineSDK
         }
     }
 }
+ */

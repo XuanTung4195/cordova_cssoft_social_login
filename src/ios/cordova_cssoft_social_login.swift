@@ -39,7 +39,7 @@ import CryptoKit
 @objc(cordova_cssoft_social_login)
 class cordova_cssoft_social_login: CDVPlugin {
     
-    var linePlugin: SwiftLineSdkPlugin?;
+    // var linePlugin: SwiftLineSdkPlugin?;
     
     var firebaseLogin : FirebaseSocialLogin?;
     
@@ -53,6 +53,7 @@ class cordova_cssoft_social_login: CDVPlugin {
     }
     
     @objc(login_apple:)
+    @available(iOS 13, *)
     func login_apple(command: CDVInvokedUrlCommand) {
         firebaseLogin?.loginApple(command: command);
     }
@@ -77,7 +78,7 @@ class cordova_cssoft_social_login: CDVPlugin {
         var channelId: String = "";
         let args = pareJsonArg(command)
         channelId = args["channelId"] as? String ?? ""
-        firebaseLogin?.loginLine(command: command, channelId: channelId);
+        // firebaseLogin?.loginLine(command: command, channelId: channelId);
     }
     
     func pareJsonArg(_ command: CDVInvokedUrlCommand) -> [String: Any] {
@@ -217,7 +218,8 @@ class FirebaseSocialLogin: NSObject, ASAuthorizationControllerDelegate  {
         return String(nonce)
     }
     
-    private func sha256(_ input: String) -> String {
+   @available(iOS 13, *)
+   private func sha256(_ input: String) -> String {
         let inputData = Data(input.utf8)
         let hashedData = SHA256.hash(data: inputData)
         let hashString = hashedData.compactMap {
@@ -227,6 +229,7 @@ class FirebaseSocialLogin: NSObject, ASAuthorizationControllerDelegate  {
         return hashString
     }
     
+    @available(iOS 13, *)
     public func authorizationController(
         controller _: ASAuthorizationController,
         didCompleteWithAuthorization authorization: ASAuthorization
@@ -259,6 +262,7 @@ class FirebaseSocialLogin: NSObject, ASAuthorizationControllerDelegate  {
         }
     }
     
+    @available(iOS 13, *)
     public func authorizationController(
         controller _: ASAuthorizationController,
         didCompleteWithError error: Error
@@ -322,8 +326,8 @@ class FirebaseSocialLogin: NSObject, ASAuthorizationControllerDelegate  {
         fbLoginManager.logOut();
         let nonce = self.randomNonceString()
         let configuration = LoginConfiguration(
-            permissions:["public_profile", "email"],
-            nonce: sha256(nonce)
+            permissions:["public_profile", "email"]
+            // nonce: sha256(nonce)
         );
         fbLoginManager.logIn(configuration: configuration) { result in
             let errorResult = SocialLoginResult(type: SocialLoginResult.typeFacebook, success: false);
@@ -370,6 +374,7 @@ class FirebaseSocialLogin: NSObject, ASAuthorizationControllerDelegate  {
 
     /// Line
     
+    @available(iOS 13, *)
     func loginLine(command: CDVInvokedUrlCommand, channelId: String) {
         self.command = command;
         let errorResult = SocialLoginResult(type: SocialLoginResult.typeLine, success: false);
@@ -378,6 +383,7 @@ class FirebaseSocialLogin: NSObject, ASAuthorizationControllerDelegate  {
             self.loginError(result: errorResult)
             return;
         }
+        /*
         SwiftLineSdkPlugin.login(channelId: channelId) { r in
             switch r {
                 case .success(let value):
@@ -396,6 +402,7 @@ class FirebaseSocialLogin: NSObject, ASAuthorizationControllerDelegate  {
                     break;
             }
         }
+        */
     }
 }
 
